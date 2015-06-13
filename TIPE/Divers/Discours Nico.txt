@@ -1,0 +1,104 @@
+(Transparent 1)
+Je vais vous présenter une méthode de compression récente de données informatiques, et plus précisement d'images.
+Pour cela, j'utiliserais le résultat du théorème de superposition de Kolmogorov.
+
+Ma présentation se fera en 3 temps.
+Tout d'abord, je présenterais brièvement comment est né ce thèorème, ... son historique ... ainsi que ses différentes applications possible.
+Ensuite, je vous exposerais une démonstration de ce théorème proposé par Jean-Pierre Kahane, qui as le mérite d'être assez simple mais avec une certaine faiblesse que je vous exposerais.
+Et pour finir, je mettrais en avant les résultats que l'on peut obtenir à l'aide de ce théorème dans la compression d'images.
+
+PARTIE 1
+(Transparent 2)
+Comme souvent en mathématiques et en physique, la dimension est source de difficultés.
+Plus la dimension est grande, plus les phénomènes mathématiques et physiques sont compliqués.
+
+A titre d'exemple nous pouvons par exemple cité en physique le problème de la résolution des équations de Navier-Stokes, résolus en dimension 2 mais qui résiste toujours en dimension 3.
+Ou bien encore le problème à 3 corps en effectuant l'analogie corps-dimension.
+En math ce problème intervient aussi régulièrement avec par exemple l'impossibilité de trouver une formule donnant les racines de n'importe quel polynôme de dégré supérieur à 4 ou encore avec le dernier théorème de Fermat l'impossibilité de trouvé des triplets de solutions à l'équation a^n=b^n+c^n pour n supérieur ou égale à 3.
+
+Dans ce TIPE, nous nous intéresserons à la résolution de ces problèmes inhérents à la dimension du point de vue du théorème de superposition de Kolmogorov.
+Autrement dit, nous démontrerons l'existence de fonctions univariés (à une variable) universelles et invariantes pour une dimension donnés permettant d'engendré l'ensemble de toutes les fonctions multidimensionnelles.
+Nous appliquerons alors pour finir ces idées à un problème concret, la compression d'image informatiques.
+
+(Transparent 3)
+Et donc premièrement, un bref historique de ce théorème. ...
+- L'idée de Kolmogorov lui est venu du 13eme problème de Hilbert.
+Ce dernier était énoncé de la manière suivante :
+"Montrer l'impossibilité de résoudre les équations du septième degré au moyen de fonctions de seulement deux variables"
+En fait, Hilbert demandait de prouvé la non-existence de solutions continues à 3 variables sur[0,1] s'exprimant comme composition de fcts à 2 variables.
+(montrer la formule)
+En 1957, Vladimir Arnold réfute dans le cas n=3 le 13 problème de Hilbert.
+Et c'est à partir de la que Kolmogorov généralisa ce résultat de la manière suivante :
+
+(Transparent 4)
+Soit n app. N, n>=2, il existe phi1 ... phi2n+1 fct continues à n variables - que nous nommerons fcts internes - tq :
+Pour toute fct f de [0,1]^n -> R, f = sum(fi(phii)); avec donc les fi fcts de 1 seul variable, fcts que appellerons fcts externes.
+C'est à dire que pour toute fonction à n variables, on peut se ramener à la somme de 2n+1 fcts d'une seule variable.
+Par exemple en dimension 3, il existe phi1...phi7 tq
+Pour tout x,y,z :
+x^y^z = sum(gi(phii))
+cos(xcos(y/z)) = sum(hi(phii))
+etc.
+Les fonctions phii étant donc invariantes de toutes fonctions ! ...
+
+PARTIE 2
+Je vais maintenant vous présenter une démonstration non-constructive de ce théorème.
+Par non constructif, j'entend que nous allons démontrer ce résultat mais que cette démonstration ne nous donnera aucunes méthodes pour obtenir les fonctions internes et externes exprimés précédemment.
+
+(Transparent 5)
+- Mais tout d'abord, un petit prérequis topologique ainsi que l'explication de quelques notations.
+Donc, j'aurais besoin d'utiliser le théorème de Baire qui s'énonce ainsi
+Soit E un espace de Banach.
+Si On est une suite d'ouverts dense de E
+Alors l'intersection de tout les On .. n'est pas forcément ouverte Mais est dense dans E.
+Je ne ferais pas la démonstration de ce résultat ici mais je pourrais vous la faire par la suite si vous me le demander.
+Je parlerais aussi de propriétés vrai pour quasi tout a, ceci équivaudra à dire qu'une propriétée est vrai pour une intersection d'ouverts denses.
+Et pour finir, je défini grand Phi, l'ensemble des fcts phi continues sur [0,1], croissante et tel que phi(0)=0 et phi(1)=1.
+-Nous pouvons donc maintenant regarder la démonstration de Jean-Pierre Kahane :
+
+(Transparent 6)
+Cette démonstration va quelques peu adapté le résultat final mais répondra tout de même au critère demandé.
+La principale différence étant le fait que nous allons prouver que l'on peut prendre les 5 fonctions externes égales entre elles.
+Venons en à la démonstration :
+Soit epsilon strictement positif, Pour toute fonction f continue de [0,1]^n on défni omega f de la manière suivante.
+Omega f est bien ouvert de grand phi puissance 2n+1, nous montrerons plus tard qu'il y est dense.
+Soit F un ensemble dénombrable et dense dans l'ensemble C de [0,1] puissance n privé de la fct nulle
+D'après le th. de Baire, l'intersection de tout les Omega de f pour f dans F est dense dans grand phi puisance 2n+1
+On y prend (phi1, ..phi2n+1)
+
+(Transparent 7)
+Il existe alors f0 dans grand F tq sa norme soit inférieur à celle de f et tel que la norme de leurs différence soit plus petite que epsilon sur 2 nprme de f
+ainsi que h vérifiant cette inégalité (montré formule) avec f0. notons ce h gamma de f et par récurrence h j égale à gamma de f j et (formule moche)
+On a donc la somme infini des h j qui converge dans C(I) vers f et donc on a le résultat recherché !
+Et ainsi s'achève cette démonstration.
+
+PARTIE 3
+Maintenant que nous savons que ce théorème est vrai, il serait bien de pouvoir obtenir les fonctions internes et externes.
+Pour cela, j'ai été trop ambitieux pour ce TIPE, l'algorithme de Sprecher que je pensais pouvoir utilisé était bien trop compliqué à assimiler. Cette algorithme permet d'obtenir les valeurs des fcts internes et externes, de manière relativement compliqué mais tout de même de façon exploitable.
+J'ai donc admis entièrement les résultats de Sprecher et je les ais appliqué à des images.
+
+(Transparent 8)
+Pour cela, j'ai considéré des images, carrés de T pixels par T pixels … en niveau de gris que j'ai identifié à des fonctions à 2 variables, la valeur de la fonction en un point représentant alors la quantité de blanc.
+Le premier problème provient du fait que ces fcts sont discrètes, définis seulement en T^2 points, les pixels de l'image. Elles ne sont donc pas continues. Pour remédier à ce problème, j'ai tout simplement effectué une interpolation linéaire entre les différents points. Vous pouvez d'ailleurs voir ici le résultat de cette interpolation
+
+(Transparent 9)
+A partir de la, nous pouvons désormais appliquer le résultat du théorème de Kolmogorov à notre image.
+Nous aurons alors notre fonction de x et y égale à la somme des 5 gn fonction d'une seule variable qui elle seras obtenus par combinaison des 2 variables. D'un point de vue schématique vous pouvez voir ici le « chemin » parcourus pour obtenir la valeur de f en x et y.En appliquant l'algorithme de Sprecher, j'ai ainsi obtenus le résultat que vous pouvez voir ci-dessous.A partir de l'image Original, nous avons obtenus 5 couches qui sont les gn de epsilon. Celles-ci paraissent très sombres tout simplement car le noir est représenté par la valeur 0 et le blanc par la valeur 1, les cinqs couches jouant à peu près le même rôle , celles-ci prennent des valeurs en majeurs partie inférieur à 1/5.
+Et donc finalement à droite, la somme de ces cinqs couches.
+
+(Transparent 10)
+Pour obtenir les fonctions internes, l'algorithme de Sprecher nous fournis des formules direct ... que je n'afficherais pas ici car je ne pourrais vous démontrez leurs justesses. Vous pouvez tout de même voir ici la représentation graphique de la fonction phi et de la fonction epsilon qui permet d'obtenir les fonctions internes à un décalage près, le plus nb que vous pouvez voir ci-dessous.
+Pour ce qui est des fonctions externes, l'algorithme nous permet d'obtenir leur valeurs par approximation successives. Pour obtenirs les gn nous devrions en effet sommé jusqu'à l'infinis les fonctions gnj définis par récurrence par une formule relativement compliqué. En réalité, à partir de la 2eme itération, les gnj prennent des valeurs extrêmement faibles, c'est pour cela que je ne les aies pas considérer dans mo programme.
+
+(Transparent 11)
+Venons en maintenant au principe de la compression d'image en elle même.Pour chaque image, nous n'avons qu'à stocker les 5 fonctions externes. Mais se pose alors un problème, la valeur des fonctions externes nous est donné au travers d'un algorithme, nous n'avons pas de formules analytique direct. Afin de remédier à ce problème, j'ai donc décider de stocker chaque fonction de la même manière que pour une image classique, de manière discrète. C'est à dire ne stocker qu'un certain nombre de points de celles-ci que nous extrapolerons. Dans la pratique, pour obtenir une qualité suffisante, j'ai du considérer 50*T points, T étant donc je rappelle la largeur de l'image.  
+Nous avons donc désormais uniquement 5 fonctions d'une seule variable à stocker en lieu et place d'une fonction de deux variables.
+De cette manière, nous sommes passé du stockage de n^2 points à 50*n points. D'un point de vue complexité en terme mémoire, nous sommes passé d'un stockage en O(n^2) à O(n).
+J'ai alors comparer cette nouvelle méthode avec une méthode très répandu, le JPG et au format bitmap, c'est à dire un format non compresser.
+J'ai ainsi remarquer que le TSK était non seulement extrêmement puissant pour de larges images, mais aussi tout à fait correct pour des images plus petites.
+Le JPG étant en effet meilleur que notre algorithme uniquement dans une bande de largeur d'image très faible.A partir de 500 fois 500 pixels, en moyenne les images que nous avons considérer une fois compresser par le TSK prenaient environ deux fois moins de place en mémoire qu'avec une compression de type JPG.
+
+(Transparent 12)
+En conclusion, je vous ai présenté une méthode de compression d'images avec perte mais permettant tout de même d'obtenir des images ayant une très forte similitude à celles originales.
+Nous avons ainsi vus que le théorème de superposition de Kolmogorov était un puissant outil de traitement du signal et  qu'une démonstration non-constructive de celui-ci pouvait se formuler relativement rapidement. Pourtant, sa mise en application est encore très anecdotique aujourd'hui malgré des taux de compressions extrêmement élevé pour de grands échantillons de données.
+C'est pour cela que j'en suis venus à penser qu'il serait sûrement extrêmement intéressant d'employé cette méthode sur des vidéos - que l'on assimilerais alors à des fonctions à 3 dimensions – la quantité de données présente sur un film étant bien supérieur à celle d'une image, nous pouvons raisonnablement nous attendre à des taux de compressions encore plus supérieurs !

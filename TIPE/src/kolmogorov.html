@@ -1,0 +1,185 @@
+<html>
+<body>
+	<canvas width=500 height=500 style="width:500px;height:500px;border:1px black solid;" id="gph"></canvas>
+	<canvas width=500 height=500 style="width:500px;height:500px;border:1px black solid;" id="tht"></canvas>
+	<br><br>
+	<canvas width=100 height=100 style="width:100px;height:100px;border:1px black solid;" id="cvs"></canvas>
+	<canvas width=100 height=100 style="width:100px;height:100px;border:1px black solid;" id="rsl"></canvas>
+	<script type="text/javascript">
+		function f(x,y) { return x; }
+		
+		var ctx = document.getElementById("cvs").getContext("2d");
+		var ctx2 = document.getElementById("gph").getContext("2d");
+		var ctx3 = document.getElementById("tht").getContext("2d");
+		
+		for(var x = 0;x<1;x+=1/100) {
+			for(var y = 0;y<1;y+=1/100) {
+				ctx.fillStyle = "rgba(0,0,0,"+f(x,y)+")";
+				ctx.fillRect(x*100,y*100,1,1);
+			}
+		}
+		
+		var prec1 = 10000; // les lambda
+		var prec2 = 4; // le nombre de couches
+		var prec3 = 10; // nombre de décimal des fcts
+		var prec4 = 10; // nombre d'itération des f_r
+		var prec5 = 10000; // la fct c_k
+			
+			
+		var d = 2; // la dimension
+		
+		var m = prec2*d; // le nombre de couches de fcts ?
+		
+		var gamma = m+2; // base des variables xi ?
+		
+		var b = 1/(gamma*(gamma-1)); // translation entre deux couches de pavages ?
+		
+		var lambda = [0,1];
+		
+		for(var i = 2;i<=d;i++) {
+			lambda[i] = 0;
+			for(var j = 1;j<prec1;j++) lambda[i] += 1/Math.pow(gamma, (i-1)*(Math.pow(d,j)-1)/(d-1));
+		}
+	
+		function baseGamma(x) {
+			var ir = [];
+			for(var r = 1; r<prec3; r++) {
+				ir[r-1] = Math.floor(x/Math.pow(1/gamma, r));
+				x -= ir[r-1]*Math.pow(1/gamma, r);
+			} return ir;
+		}
+		
+		function psi(dk) {
+			return psik(baseGamma(dk));
+		}
+		
+		function dkn(dk, n) {
+			var tmp = dk.length;
+			for(var i = tmp-1; i>0; i--) {
+				dk[i] += n;
+				if(dk[i] >= gamma) {
+					dk[i] %= gamma;
+					dk[i-1]++;
+				}
+			}
+			if(dk[0] > gamma) {
+				var new_dk= [];
+				for(var i = 0; i < tmp; i++) new_dk[i] = gamma - 1;
+				return new_dk;
+			}
+			else return dk;
+		}
+		
+		alert(gamma+"\n\n"+baseGamma(.6)+"\n\n"+dkn(baseGamma(.6), 2));
+		
+		function psik(dk) {
+			var tmp = dk.length;
+			if(tmp == 1) return dk[0]/gamma;
+			else if(dk[tmp-1] < gamma - 1) {
+				var p = dk[tmp-1]/Math.pow(gamma, (Math.pow(d,tmp)-1)/(d-1));
+				return psik(dk.slice(0, tmp-1)) + p;
+			}
+			else {
+				dk[tmp-1] -= 1;
+				var s = psik(dk);
+				var t = dk.slice(0, tmp-1);
+				t[tmp-2] +=1;
+				return .5*(s+psik(t));
+			}
+		}
+		
+		ctx2.beginPath();
+		ctx2.moveTo(0,0);
+		for(var i=0;i<=1;i+=1/500) {
+			ctx2.lineTo(i*500,500-psi(i)*500);
+		}
+		ctx2.stroke();
+		
+		function epsilon(xi) {
+			var tmp = 0;
+			for(var i = 0;i<d;i++) tmp += lambda[i+1]*psi(xi[i]);
+			return tmp;
+		}
+		
+		
+		//----------------------------------------------------
+
+		function c(k) {
+			var tmp = 0;
+			for(var r = k+1;r<prec5; r++) {
+				var tmp2 = 0;
+				for(var p = 1; p<=d; p++) tmp2 += lambda[p];
+				tmp += 1/Math.pow(gamma, (Math.pow(d, r)-1)/(d-1))*tmp2;
+			}
+			return tmp;
+		}
+		
+		function sigma(x) {
+			if(x<=0) return 0;
+			else if(x>=1) return 1;
+			else return x;
+		}
+		
+		
+		function theta(y, dk_n) {
+			var tmp1 = sigma(1+(y - epsilon(dk_n))*Math.pow(gamma, (Math.pow(d, dk_n.length+1)-1)/(d-1)));
+			var tmp2 = sigma((y - epsilon(dk_n) - (gamma-2)*c(dk_n.length))*Math.pow(gamma, (Math.pow(d, dk_n.length+1)-1)/(d-1)));
+			return tmp1 - tmp2;
+		}
+		
+		alert(c(0));
+		alert(c(1));
+		alert(c(2));
+		alert(c(3));
+		
+		ctx3.beginPath();
+		var deb = 0;
+		var fin = 1;
+		for(var i=deb; i<= fin; i+=(fin-deb)/5000) {
+			var dk_n = dkn(baseGamma(i), 2);
+			var yn = epsilon(baseGamma(i));
+			if(theta(y, dk_n) != 0) alert(theta(y, dk_n)+"\n"+i);
+			if(i == deb) ctx3.moveTo((i-deb)/(fin-deb)*500, 500-theta(y, dk_n)*500-1);
+			else ctx3.lineTo((i-deb)/(fin-deb)*500, 500-theta(y, dk_n)*500-1);
+		}
+		ctx3.stroke();
+		
+		
+		/*var fr = [f];
+		var gnroeps = [];
+		for(var r = 1; r<prec4;r++) {
+			var kr = [1,1];
+			
+			for(var n = 0; n<m; n++) {
+				gnroeps[r] = [];
+				gnroeps[r][n] = function(x,y) { 
+					var tmp = 0;
+					var tmp2 = [baseGamma(Math.pow(kr[0],n)), baseGamma(Math.pow(kr[1],n))];
+					tmp += fr[r-1](tmp2[0], tmp2[1])*theta(epsilon(x+b*n, x+b*n)-epsilon(tmp2));
+					return 1/(m+1)*tmp;
+				}
+			}
+			fr.push(function(x,y) {
+				var tmp = 0;
+				for(var n = 0;n<m;n++) {
+					for(var i = 1; i<r; i++) tmp += gnroeps[i][n](x+b*n, y+b*n);
+				}
+				return f(x,y) - tmp;
+			});
+		}*/
+		
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

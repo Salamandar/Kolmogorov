@@ -1,0 +1,93 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{geometry}
+\geometry{top=40pt}
+\author{Félix Piédallu \& Nicolas Lebbe}
+\date{}
+\title{Preuve non constructive du Théorème de Kolmogorov}
+\begin{document}
+\maketitle
+
+\textbf{\textsc{Énoncé du Théorème de Kolmogorov :}}\\
+
+Toute fonction continue réelle définie sur $I^n = [0,1]^n$ peut s'écrire sous la forme :\\
+\[f(x_1, …, x_2) = \sum_{q=1}^{2n+1} g_q \left(\sum_{p=1}^n \varphi_{p,q}(x_p)\right)\]
+où les $g_p$ et les $\varphi_{p,q}$ sont réelles continues ; $\varphi_{p,q}$ croissantes sur I et indépendantes de $f$.\\
+
+\emph{Cet énoncé sera adapté à :}\\
+
+Pour quasi tout $(\varphi_1,…, \varphi_{2n+1}) \in \Phi^{2n+1}$, toute fonction $f$ continue sur $I^n$ est représentable sous la forme :
+\begin{equation}
+f(x_1,…, x_n) = \sum_{q=1}^{2n+1} g \left(\sum_{p=1}^n \lambda_p \varphi_q(x_p) \right) \\
+\end{equation}
+où g est continue sur $I$, et les $\lambda_1,…, \lambda_n$ sont strictement positifs, de somme 1.\\
+
+\textbf{\textsc{Notations utilisées :}}\\
+
+\begin{itemize}
+\item[•] On dit qu'une propriété est vraie \emph{pour quasi tout a} si elle est vraie pour une intersection d'ouverts denses.
+\item[•] $\Phi$ est l'ensemble des fonctions $\varphi$ croissantes, continues sur $I$, telles que $\varphi(0)=0 , \varphi(1)=1$.
+\item[•] L'oscillation de $f$ sur I sera $\displaystyle \max_I(f) - \min_I(f) $.\\
+\end{itemize}
+
+\textbf{\textsc{Démonstration :}}\\
+
+Soit $\epsilon>0$. Pour $f \in C(I^n)$, définissons \\ 
+$\Omega(f)=\left\lbrace (\varphi_1,…, \varphi_{2n+1}) \in \Phi^{2n+1} | \exists h \in C(I^n)\right\rbrace$ avec :\\
+\begin{equation}
+\begin{array}{l}
+(i)\hspace{1.5em} \|h\| \leq \|f\|\; \\
+(ii)\hspace{1em}\displaystyle \left\| f(x_1,…, x_n) - \sum_{q=1}^{2n+1} h \left(\sum_{p=1}^n \lambda_p \varphi_q (x_p) \right) \right\| < (1-\epsilon)\|f\|
+\end{array}
+\end{equation}
+
+$\Omega(f)$ est bien un ouvert de $\Phi ^{2n+1}$ ; Nous montrerons plus tard qu'il y est dense. \\
+
+Soit F un ensemble dénombrable dense dans $C(I^n)\backslash\{0\}$. Par le grand théorème de Baire,
+$\bigcap_{f \in F} \Omega(f)$ est dense dans $\Phi^{2n+1}$ ; On y prend $(\varphi_1,…,\varphi_{2n+1})$.\\
+Pour $f \in C(I^n)$ non nulle, il existe $f_0 \in F$, telle que $\|f_0\| \leqslant \|f\|$ et $\|f-f_0\| < \frac{\epsilon}{2} \|f\|$ ; \\ainsi que $h$ vérifiant l'équation $(2)$ avec $f_0$. Notons-la $h= \gamma(f)$, avec $\gamma(0)=0$.\\
+Par récurrence, nous définissons $h_j = \gamma(f_j)$, et
+\[f_{j+1}(x_1,…,x_n)= f_j(x_1,…, x_n) - \sum_{q=1}^{2n+1} h_j\left( \sum_{p=1}^n \lambda_p \varphi_q(x_p)\right) \]
+Comme $(2)$ a lieu, la série $\sum_{j=0}^\infty h_j$ converge dans $C(I)$ vers $g$ qui vérifie alors $(1)$.\\
+\begin{flushright} \textit{CQFD} \\\end{flushright}
+
+\textbf{\textsc{Densité de $\Omega(f)$ :}}\\
+
+Soit $G$ un ouvert de $\Phi^{2n+1}$ ; $\delta>0$ dépendant de $G, \epsilon, f$. Soit , pour $j \in \mathbb{Z}$
+\[I_q(j)=[q\delta + (2n+1)j\delta, \sim + 2n\delta], q \in \{1, 2,…, 2n+1\} \]
+\begin{itemize}
+\item[•] À $q$ fixé, les $I_q(j)$ sont disjoints et séparés de $\delta$
+\item[•] Pour tout x de $[0,1]$, il existe au plus un $q$, tel que $ x \notin \bigcup_{j \in \mathbb{Z}} I_q(j)$.\\
+\end{itemize}
+
+Pour passer en dimension $n$, définissons $P_q(j_1,…,jn)=I_q(j_1)\times…\times I_q(j_n)$ ; et de même,\\
+pour tout x de $I^n$, il existe au plus $\mathbf{n}$ valeurs de $q$, tel que $ x \notin \bigcup_{(j_1,…,j_n) \in \mathbb{Z}^n} P_q(j_1,…,j_n)$.\\
+
+Soit $\Delta = \{\varphi_1,…, \varphi_{2n+1}\} \in \Phi^{2n+1}$ telle que pour tout $q=1,…,2n+1$,\\
+$\varphi_q$ est constante sur $I_q$ et linéaire sur les intervalles consécutifs.\\
+
+On pose alors $\delta$ telle que : 
+\begin{itemize}
+\item[•] L'oscillation de $f$ sur chaque $P_q$ ne dépasse pas $\epsilon \|f\|$
+\item[•] $G \cap \Delta \neq \varnothing$\\
+\end{itemize}
+
+On prend alors $(\varphi_1,…, \varphi_{2n+1}) \in G \cap \Delta$. On peut modifier très légèrement la valeur des $\varphi_q$, tout en restant dans $G \cap \Delta$, afin de pouvoir supposer que \[\chi_q(x_1,…, x_{2n+1}) = \sum_{p=1}^n \lambda_p \varphi_q (x_p), \]soit constante sur chaque $P_q$, y prenne des valeurs différentes., et que les $\chi_q(P_q)$ sont toutes différentes, pour des valeurs de $q$ différentes. Formellement, \[q,j_1,…, j_n \mapsto \chi_q(P_q(j_1,…, j_n)) \] est injective.
+
+Soit $\mathcal{M}(P_q)$ la valeur moyenne de $f$ sur $P_q$.\\
+Définissons, sur tout pavé $P_q(j_1,…,j_n)$, \[h(\chi_q(P_q))=2\epsilon \mathcal{M}(P_q)\]
+et on prolonge $h$ "arbitrairement" de sorte que l'on ait $ \|h\| \leqslant 2\epsilon\|f\|$.\\
+Soit $x = (x_1,…,x_n) \in I^n$. Si $x \in P_q$, on a \[h(\chi_q(x))=2\epsilon\|f(x)\| + \rho, \qquad |\rho|\leqslant 2\epsilon^2\|f\| .\]
+Comme $x$ est contenu dans au moins $n+1$ cubes $P_q$, alors pour $\epsilon < \frac{n+1}{2}$,
+\begin{align*}
+|f(x) - \sum_{q=1}^{2n+1}| & \leqslant (1-2(n+1)\epsilon)|f(x)| + 2(n+1)\epsilon^2\|f\|+2n\epsilon \|f\|\\
+& \leqslant (1-2\epsilon + 2(n+1)\epsilon^2)\|f\| \\
+& \leqslant(1-\epsilon)\|f\| & \equiv (2)
+\end{align*}
+Ceci achève la démonstration.
+\end{document}

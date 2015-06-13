@@ -1,0 +1,62 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{geometry}
+%\geometry{hmargin=3.5cm,vmargin=2cm}
+\author{Félix Piédallu \& Nicolas Lebbe \\ {\footnotesize Document édité avec \LaTeX}}
+\title{Le théorème de Baire : Énoncé et démonstration}
+\date{}
+\begin{document}
+\thispagestyle{empty}
+\part*{Énoncé du théorème de Baire}
+Soit E un espace vectoriel normé et complet (Espace de Banach).
+\begin{center}
+\begin{tabular}{|l|}
+\hline
+Soit $(O_n)_n$ une suite d'ouverts denses de E.\\
+Alors $\bigcap_{n \in\mathbb{N}} O_n$ est dense dans E (Mais non ouvert). \\
+\hline
+\multicolumn{1}{c}{$\Leftrightarrow$} \\
+\hline
+Si $(F_n)_n$ est une suite de fermés d'intérieur vide,\\
+$\bigcup_{n \in \mathbb{N}} F_n$ est un ensemble d'intérieur vide. \\
+\hline
+\end{tabular} \\
+\end{center}
+En effet, $A$ est d'intérieur vide $\Leftrightarrow$ son complémentaire est dense dans E. 
+\part*{Preuve}
+Soit $x \in E$ et $r >0 $. Montrons que 
+\begin{equation}
+B=B(x,r) \cap (\bigcap_{n \in \mathbb{N}} O_n) \neq \emptyset
+\end{equation}
+(En effet, A dense $\Leftrightarrow \forall x, \forall r, B(x,r) \cap A \neq \emptyset $)\\
+
+$O_1$ dense $\Rightarrow \exists (x_1, r_1)$ tels que $B_1 = B(x_1,r_1) \subset (O_1 \cap B)$ et $r_1 < {r \over 3}$.\\
+Par récurrence, on définit :
+\begin{equation*} B_i = B(x_i, r_i) \subset (O_i \cap B_{i-1}) \text{ et } r_i < {r_{i-1} \over 3} 
+\end{equation*}
+
+On obtient donc que pour tout $i, ||x_{i+1}-x_{i}|| \leq r_{i+1} \leq {r \over 3^i}$.\\
+
+Donc $ \sum x_{n+1} - x_n$ converge absolument.\\
+Enfin, par "critère suite-série" dans un espace de Banach, la suite des $x_n$ converge vers un élément $x_\infty \in E$.\\
+
+De plus, $B_n$ étant une suite de boules emboîtées, elle vérifie :\\
+$\forall p \in \mathbb{N} : \\ \forall n \geq p, B(x_n, r_n) \subset B(x_p, r_p) \subset O_p \cap … \cap O_1 $. \\
+D'où $x_\infty \in O_p \cap … \cap O_1$.
+
+Comme la relation est vraie pour tout $p$, on a $x_\infty \in \bigcap_{n \in \mathbb{N}} O_n$. Et alors :\\
+\begin{equation*}
+\left\{\begin{array}{l}
+x_\infty \in B(x, r) \\
+x_\infty \in \bigcap_{n \in \mathbb{N}} O_n
+\end{array}\right . \Longrightarrow 
+x_\infty \in B(x,r) \cap (\bigcap_{n \in \mathbb{N}} O_n)
+\end{equation*}
+
+On a donc $(1)$ et ce qui achève la démonstration.
+\end{document}

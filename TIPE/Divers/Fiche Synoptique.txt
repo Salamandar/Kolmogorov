@@ -1,0 +1,48 @@
+[b]Titre :[/b]
+Application du Théorème de Superposition de Kolmogorov à la compression d'images
+
+[b]Motivation :[/b]
+Initialement, nous nous étions dirigé vers l'étude de différentes méthodes de compression de données informatiques, sujet qui nous paraissait à la fois être en rapport direct avec le sujet de cette année (Recherche de similitudes à l'intérieur de données numériques pour obtenir un fichier exprimant les mêmes données - invariance -) et en même temps riche en contenu mathématique. Au cours de nos recherches, nous avons décidé de nous focaliser plus particulièrement sur une méthode récente qui nous paraissait très intéressante, l'utilisation du Théorème de Kolomogrov.
+
+[b]Objectif :[/b]
+Comparer cette "nouvelle" méthode compression aux différentes méthodes déjà existantes.
+
+[b]Démarche :[/b]
+Notre travail s'est effectué en plusieurs étapes :
+- Documentation autour de méthodes numériques de compression de l'information
+- Rencontre avec un chercheur de l'Institut Henri Poincarré, Monsieur Guillaume Poly
+- Cours théorique pour la compréhension mathématique du théorème avec ce dernier
+- Mise en place de l'algorithme et comparaison avec d'autres méthodes
+
+[b]Travail expérimental :[/b]
+Réalisation d'un programme appliquant l'algorithme de Sprecher à une image assimilée à une fonction à deux dimensions.
+
+[b]Plan :[/b]
+Introduction
+I Du 13eme problème de Hilbert au théorème de Superposition de Kolmogorov
+- Un peu d'histoire
+- Les différentes applications du théorème
+
+II La théorie
+- Prérequis de Topologie
+- Preuve "non constructive" de Jean Pierre Kahane
+
+III Application
+- Principe de construction
+- Exemples et comparaison 
+Conclusion
+
+[b]Bilan :[/b]
+Ce TIPE nous a permis de constater qu'un problème qui a été étudié depuis la naissance de l'informatique et dont les principales solutions ont été trouvées avant les années 80 était toujours étudié aujourd'hui. Nous avons été particulièrement surpris par la complexité de cette nouvelle méthode et des prérequis mathématiques nécessaires, contrastant fortement avec les méthodes présentes jusqu'alors.
+
+[b]Bibliographie :[/b]
+Internet :
+- http://en.wikipedia.org/wiki/Hilbert_s_thirteenth_problem
+- http://serge.mehl.free.fr/chrono/Kolmogorov.html
+
+Articles :
+- Pierre-Emmanuel L., thèse de doctorat (UB Bourgogne), [b]2010[/b]
+- Jean-Pierre K., Sur le th. de Superposition de Kolmogorov, [b]1975[/b], 13, p229-234
+
+[b]Contact :[/b]
+- Guillaume POLY, chercheur à l'IHP de Paris
